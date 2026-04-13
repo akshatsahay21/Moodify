@@ -35,12 +35,27 @@ async function uploadSong(req, res) {
     })
 }
 
+// async function getSong(req, res) {
+//     const { mood } = req.query;
+
+//     const song = await songModel.findOne({
+//         mood
+//     })
+
+//     res.status(200).json({
+//         message: "Song fetched successfully",
+//         song
+//     })
+// }
 async function getSong(req, res) {
     const { mood } = req.query;
 
-    const song = await songModel.findOne({
-        mood
-    })
+    const songs = await songModel.aggregate([
+        { $match: { mood } },
+        { $sample: { size: 1 } }  // picks 1 random document
+    ])
+
+    const song = songs[0]
 
     res.status(200).json({
         message: "Song fetched successfully",

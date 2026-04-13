@@ -1,8 +1,8 @@
+
 import {
     FaceLandmarker,
     FilesetResolver
 } from "@mediapipe/tasks-vision";
-
 
 export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
     const vision = await FilesetResolver.forVisionTasks(
@@ -22,7 +22,14 @@ export const init = async ({ landmarkerRef, videoRef, streamRef }) => {
         }
     );
 
+    // Guard: component may have unmounted while model was loading
+    if (!videoRef.current) return;
+
     streamRef.current = await navigator.mediaDevices.getUserMedia({ video: true });
+
+    // Guard again after the async getUserMedia call
+    if (!videoRef.current) return;
+
     videoRef.current.srcObject = streamRef.current;
     await videoRef.current.play();
 };
@@ -36,7 +43,7 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
     );
 
     if (results.faceBlendshapes?.length > 0) {
-        const blendshapes = results.faceBlendshapes[ 0 ].categories;
+        const blendshapes = results.faceBlendshapes[0].categories;
 
         const getScore = (name) =>
             blendshapes.find((b) => b.categoryName === name)?.score || 0;
@@ -47,8 +54,6 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
         const browUp = getScore("browInnerUp");
         const frownLeft = getScore("mouthFrownLeft");
         const frownRight = getScore("mouthFrownRight");
-
-        console.log(getScore("mouthFrownLeft"))
 
         let currentExpression = "Neutral";
 
@@ -61,7 +66,6 @@ export const detect = ({ landmarkerRef, videoRef, setExpression }) => {
         }
 
         setExpression(currentExpression);
-
-        return currentExpression
+        return currentExpression;
     }
 };
