@@ -5,7 +5,7 @@ import axios from "axios"
 //     withCredentials: true
 // })
 const api = axios.create({
-    baseURL: "https://moodify-backend.onrender.com",
+    baseURL: "https://moodify-1rci.onrender.com",
     withCredentials: true
 })
 
