@@ -135,7 +135,15 @@ npm run dev
 
 ## 📸 Screenshots
 
-> Login Page · Home Page · Music Player
+> Login Page
+<img width="1919" height="957" alt="Screenshot 2026-04-14 144633" src="https://github.com/user-attachments/assets/4246b06c-a3c5-48dc-8a71-1b22af25d998" />
+
+
+
+
+> · Home Page
+> <img width="1920" height="1080" alt="Screenshot 2026-04-14 144653" src="https://github.com/user-attachments/assets/604c93d5-4b25-4c65-8d2c-330f1ecba610" />
+
 
 ---
 
