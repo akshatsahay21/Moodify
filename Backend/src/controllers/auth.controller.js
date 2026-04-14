@@ -35,7 +35,12 @@ async function registerUser(req, res) {
     },
   );
 
-  res.cookie("token", token);
+  // res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
+});
 
   return res.status(201).json({
     message: "User registered successfully",
@@ -85,7 +90,14 @@ async function loginUser(req, res) {
     },
   );
 
-  res.cookie("token", token);
+  // 
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
+});
+
+
   return res.status(200).json({
     message: "User logged in successfully",
     user: {
