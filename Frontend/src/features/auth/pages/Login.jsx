@@ -62,8 +62,10 @@ const Login = () => {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        await handleLogin({ email, password })
-        navigate("/")
+        const didLogin = await handleLogin({ email, password })
+        if (didLogin) {
+            navigate("/")
+        }
     }
 
     return (
